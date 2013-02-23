@@ -14,6 +14,7 @@ libraries:
 - name: webapp2
   version: latest
 
+
 handlers:
 - url: /static
   static_dir: assets

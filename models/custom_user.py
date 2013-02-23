@@ -123,7 +123,7 @@ class CustomUser(ndb.Model):
         password_hash = hashlib.sha1(password).hexdigest()
 
         # check if email exists in db
-        users = cls.query(cls.email == email)
+        users = cls.query(cls.email == email, cls.confirmed == True)
         if users.count() != 0:
             # there exists some users with that email
             return None

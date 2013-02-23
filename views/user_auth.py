@@ -64,7 +64,7 @@ class SignUpHandler(BaseHandler):
         if self.app.config.get('production'):
             # send verification url thru email
             app_id = app_identity.get_application_id()
-            sender = "Hardcode SCI <noreply.%s.appspot.com" % app_id
+            sender = "Hardcode SCI <noreply@%s.appspotmail.com" % app_id
             subject = "Verify your account"
             
             message = mail.EmailMessage(sender=sender, subject=subject)        
@@ -81,7 +81,7 @@ class SignUpHandler(BaseHandler):
             Hardcode SCI team.
             """ % (name, verification_url)
             
-            logging.info("Sending email: %s" % repr(message))
+            logging.info("Sending email: Sender: %s, Subject: %s, To: %s, Body: %s" % (message.sender, message.subject, message.to, message.body))
             
             message.send()
             
