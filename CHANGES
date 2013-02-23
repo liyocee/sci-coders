@@ -1,0 +1,15 @@
+# This file will show changes made by any editor, it requires you enter what u changed, when, and who
+
+### HEAD
+
+### [February 7, 2013]
+
+* Upgraded framework to webapp2 from webapp
+* Added user authentication
+
+### [February 4, 2013]
+
+* Added dev framework (app.yaml, main.py ..)
+* Added refactored routing (routes.py)
+* Added html5 static files
+* Added helloworld example handler

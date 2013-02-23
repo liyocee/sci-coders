@@ -1,0 +1,85 @@
+application: sci-coders
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: true
+
+builtins:
+ - appstats: on
+
+libraries:
+- name: jinja2
+  version: latest
+
+- name: webapp2
+  version: latest
+
+handlers:
+- url: /static
+  static_dir: assets
+
+- url: /superadmin
+  script: main.app
+  login: admin
+  
+- url: /signin
+  script: main.app
+  secure: always
+
+- url: /signup
+  script: main.app
+  secure: always
+
+- url: /forgot
+  script: main.app
+  secure: always
+
+#items
+- url: /item/add
+  script: main.app
+  secure: always
+
+- url: /item/edit/.*
+  script: main.app
+  secure: always
+
+- url: /item/del/.*
+  script: main.app
+  secure: always
+
+#discussions
+- url: /discussions
+  script: main.app
+  secure: always
+
+- url: /discussions/add
+  script: main.app
+  secure: always
+
+- url: /discussions/edit/.*
+  script: main.app
+  secure: always
+
+- url: /discussions/view/.*
+  script: main.app
+  secure: always
+
+- url: /discussions/del/.*
+  script: main.app
+  secure: always
+
+#comments
+- url: /comments/add/.*
+  script: main.app
+  secure: always
+
+#- url: /comments/edit/.*
+#  script: main.app
+#  secure: always
+
+- url: /comments/del/.*
+  script: main.app
+  secure: always
+
+- url: .*
+  script: main.app

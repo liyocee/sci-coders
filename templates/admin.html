@@ -1,0 +1,101 @@
+{% extends __base_template %}
+
+{% block title %}Administrator{% endblock %}
+
+{% block content %}
+{% block submenu %}
+    
+{% endblock %}
+
+
+{% if is_superadmin %}
+<a href="{{ uri_for('superadmin_signout') }}">Sign Out</a>
+{% endif %}
+
+
+<h3>Users</h3>
+<div class="bs-docs-example">
+    <table class="table table-bordered   table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Date Created</th>
+            <th>Confirmed?</th>
+            <th>Active</th>
+            <th>Admin?</th>
+            <th>Options</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.date_created.strftime('%Y-%m-%d') }}</td>
+            <td>{{ user.confirmed }}</td>
+            <td>{{ user.active }}</td>
+            <td>{{ user.admin }}</td>
+            <td>
+                {% if current_user and user.key == current_user.key %}
+                    <span>me</span>
+                {% else %}
+                    
+                    {% if is_superadmin %}
+                        {% if user.admin %}
+                            <a href="{{ uri_for('remove_admin', id=user.key.urlsafe()) }}">Remove Admin</a>
+                        {% else %}
+                            <a href="{{ uri_for('make_admin', id=user.key.urlsafe()) }}">Make Admin</a>
+                        {% endif %}                        
+                    {% endif %}
+                    
+                    {% if not user.admin %}
+                        &nbsp;&nbsp;
+                        {% if user.active %}
+                            <a href="{{ uri_for('disable', id=user.key.urlsafe()) }}">Deactivate</a>
+                        {% else %}
+                           <a href="{{ uri_for('enable', id=user.key.urlsafe()) }}">Activate</a>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+
+<hr/>
+
+<h3>Items</h3>
+<div class="bs-docs-example">
+    <table class="table table-bordered   table-hover">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Date created</th>
+                <th>Expiry date</th>
+                <th>Seller</th>
+                <th>Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td>{{ item.title }}</td>
+                <td>{{ item.description }}</td>
+                <td>{{ item.price }}</td>
+                <td>{{ item.creation_time }}</td>
+                <td>{{ item.expiry_date }}</td>
+                <td><a href="/profile/{{ item.seller.urlsafe() }}">{{ item.seller.get().name }}</a></td>
+                <td><a href="{{ uri_for('admin_item_remove', id=item.key.urlsafe()) }}">Delete</a>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+<hr/>

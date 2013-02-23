@@ -1,0 +1,10 @@
+{% extends 'base/page.html' %}
+{% block title %}
+    Oops!
+{% endblock %}
+{% block body %}
+    <div class="alert-error">
+        <p>The following error occurred while processing your request</p>
+        <p>{{ message }}</p>
+    </div>
+{% endblock %}

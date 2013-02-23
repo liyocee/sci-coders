@@ -1,0 +1,48 @@
+{% extends __base_template %}
+
+{% block title %}Items{% endblock %}
+
+{% block content %}
+{% block submenu %}
+    {% if user %}
+        <li><a href="/items/add">Add Item</a></li>
+    {% else %}
+        <li><a href="/items/add">Sign in to add an item</a></li>
+        <li><a href="/signup">Don't have account ? Sign Up</a></li>
+    {% endif %}
+{% endblock %}
+<div class="bs-docs-example">
+    <table class="table table-bordered   table-hover">
+        <thead>
+        <tr>
+            <th></th>
+            <th>Title</th>
+            <th>Price</th>
+            <th>Creation</th>
+            <th>Description</th>
+            <th>Expiry</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for i in items %}
+        <tr>
+            <td>
+                {% if i.seller == user %}
+                    <a href="items/edit/{{ i.key.urlsafe() }}">edit</a>
+                    &nbsp;&nbsp;
+                    <a href="items/del/{{ i.key.urlsafe() }}">del</a>
+                    {% else %}<a href="discussions/add?item={{ i.key.urlsafe() }}">discuss</a>
+                {% endif %}
+            </td>
+            <td>{{ i.title }}</td>
+            <td>{{ i.price }}</td>
+            <td>{{ i.creation_time.strftime('%Y-%m-%d') }}</td>
+            <td>{{ i.description }}</td>
+            <td>{{ i.expiry_date.strftime('%Y-%m-%d') }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+

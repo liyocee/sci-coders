@@ -1,0 +1,59 @@
+{% extends __base_template %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block body %}
+	
+
+{% if failed %}
+<p style="color: red">
+	{% if not email %}
+	Please provide your email address.
+	<br/>
+	{% endif %}
+	
+	{% if not password %}
+	Please provide your password.
+	<br/>
+	{% endif %}
+	
+	{% if mismatch %}
+	Please provide a matching password in the confirm field.
+	<br/>
+	{% endif %}
+	
+	{% if exists %}
+	Sorry but there exists a user with that email.
+	<br/>
+	{% endif %}
+	
+</p>
+{% endif %}
+	<fieldset>
+		<form action="" method="POST" class="form-horizontal">
+			<legend><h3>Sign Up</h3></legend>
+				<p><label for="name">Name: </label>
+					<input type="text" name="name" value="{% if failed %}{{ name }}{% endif %}" required/>
+				<br/></p>
+				
+				<p><label for="email">Email: </label>
+					<input type="email" name="email" value="{% if failed %}{{ email }}{% endif %}" required/>
+				<br/></p>
+					
+				<p><label for="password">Password: </label>
+					<input type="password" name="password" value="" required/>
+				<br/></p>
+				
+				<p><label for="confirm_password">Confirm Password: </label>
+					<input type="password" name="confirm_password" value="" required/>
+				<br/></p>
+				
+					           
+				<p><input class="btn btn-primary"  type="submit" value="Sign Up" />&nbsp;&nbsp;<input class="btn btn-primary" type="reset" value="Cancel" />
+		</form>
+	</fieldset>
+{% endblock %}
+
+{% block sidebar %}
+	<li><a href="/signin">Sign In</a></li>  	
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends __base_template %}
+
+{% block title %}Sign In{% endblock %}
+
+{% block body %}
+
+{% if failed %}
+	<p style="color: red">
+		{% if not email %}
+		Please provide your email address.
+		<br/>
+		{% endif %}
+	
+		{% if not password %}
+		Please provide your password.
+		<br/>
+		{% endif %}
+	
+		{% if not_found %}
+		Sorry, either your email or password is incorrect. Please try again.
+		<br/>
+		{% endif %}
+		
+		{% if not_active %}
+		Sorry, your account has been disabled.
+		<br/>
+		{% endif %}		
+	</p>
+	<br/>
+{% endif %}
+	<fieldset>
+		<form action="" method="POST" class="form-horizontal">
+			<p><label for="email">Email: </label>
+				<input type="text" name="email" value="{% if failed %}{{ email }}{% endif %}" required/>
+			<br/></p>
+			
+			<p><label for="password">Password: </label><input type="password" name="password" value="" required/>
+			<br/></p>
+			
+			<p><label for="remember">Remember: </label><input type="checkbox" name="remember" value="1" />
+			<br/></p>
+			
+			<input value="Sign In" class="btn btn-primary" type="submit" />
+		</form>
+	</fieldset>
+{% endblock %}
+
+{% block sidebar %}
+	<li><a href="/signup">Sign Up</a></li>  	
+{% endblock %}

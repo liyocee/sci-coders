@@ -1,0 +1,25 @@
+{% extends 'base/page.html' %}
+{% block title %}Discussions{% endblock %}
+{% block body %}
+    {% for i in discussions %}
+        <div class="well">
+            <div style="display:inline-block">
+                <h4>{{ i.topic }}</h4>
+                Created by {{ i.owner.get().name }} on {{ i.time_created.strftime("%A %d, %B %Y") }}<br/>
+                PARTICIPANT : {{ i.participant.get().name }}
+            </div>
+            <div class="pull-right">
+                <ul style="list-style: none;">
+                    <li><a href="/discussions/view/{{ i.key.urlsafe() }}" style="margin-bottom: 2px;width: 80px" class="btn">View</a></li>
+                    {% if i.owner==user %}
+                        <li><a href="/discussions/edit/{{ i.key.urlsafe() }}" style="margin-bottom: 2px;width: 80px" class="btn">Edit</a></li>
+                        <li><a href="/discussions/del/{{ i.key.urlsafe() }}" style="width: 80px" class="btn">Delete</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
+{% block sidebar %}
+    <li><a href="/discussions/add">Add Discussion</a></li>
+{% endblock %}

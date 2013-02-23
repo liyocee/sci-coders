@@ -1,0 +1,20 @@
+{% extends 'base/page.html' %}
+{% block title %}{% if edit_mode %}Edit{% else %}Add{% endif %} Discussion{% endblock %}
+{% block body %}
+ <div class="container">
+    <legend><h3>Add Discussion</h3></legend>
+    <form method="POST" action="/discussions/{% if edit_mode %}edit/{{ disc.key.urlsafe() }}{% else %}add{% endif %}" >
+        <input type="hidden" name="item" value="{{ item }}" required/>
+        <p><label for="topic>">Topic</label> <input name="topic" type="text" class="input-xlarge" value="{% if edit_mode %}{{ disc.topic }}{% endif %}" required/><br></p>
+        {% if not edit_mode %}
+          <p><Label for="to_id"> To : </label><select name="to_id">
+            {% for i in users %}
+                {% if i.key!=user %}<option value="{{ i.key.urlsafe() }}">{{ i.name }}</option>{% endif %}{% endfor %}</select><br></p>
+        {% endif %}
+        <input name="submit" type="submit" class="btn btn-primary" >
+    </form>
+</div>
+{% endblock %}
+{% block sidebar %}
+  <li><a href="/discussions">Back to Discussions</a></li>
+{% endblock %}

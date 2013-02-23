@@ -1,0 +1,58 @@
+{% extends __base_template %}
+
+{% block title %}{% if edit_mode %}Edit{% else %}Add{% endif %} Item{% endblock %}
+{% block submenu %}
+    
+{% endblock %}
+{% block body %}
+    <div class="container">
+        <legend><h3>Add Item</h3></legend>
+        <form id="frm" action="/items/{% if edit_mode %}edit/{{ item_id }}{% else %}add{% endif %}" method="post">
+            {# csrf_token #}
+            <input type="hidden" id="changed" name="changed" value="{% if edit_mode %}1{% else %}0{% endif %}" />
+
+            <div class="control-group">
+                <div class="control-label"><label for="txtTitle">Title</label></div>
+                <div class="controls"><input type="text" name="txtTitle" class="input-xlarge" id="txtTitle"
+                                             {% if edit_mode and item.title %}value="{{ item.title }}"{% endif %} required/>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="control-label"><label for="txtPrice">Price</label></div>
+                <div class="controls"><input type="text" name="txtPrice" class="input-xlarge" id="txtPrice"
+                                             {% if edit_mode and item.price %}value="{{ item.price }}"{% endif %} required/>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="control-label"><label for="divTime">Expiry</label></div>
+                <div class="controls" id="divTime">
+                    <input type="date" placeholder="e.g. 20-10-2012" name="txtExpiryD" class="input-xlarge"
+                           id="txtExpiryD" {% if edit_mode and item.expiry_date.date() %}value="{{ item.expiry_date.date() }}"{% endif %} required/>
+                    <input type="time" placeholder="e.g. 12:39" name="txtExpiryT" class="input-xlarge"
+                           id="txtExpiryT" {% if edit_mode and item.expiry_date.time() %}value="{{ item.expiry_date.time() }}"{% endif %} required/>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="control-label"><label for="txtDesc">Description</label></div>
+                <div class="controls">
+                    <textarea type="text" class="input-xlarge" name="txtDesc" id="txtDesc" rows="5" cols="150" required>{% if edit_mode and item.description %}{{ item.description }}{% endif %}</textarea>
+                </div>
+            </div>   
+                <input type="submit" value="Save"  name="btnSubmit" class="btn btn-primary"/>
+                <input type="reset" value="Reset"  class="btn btn-primary"/>
+                <a href="/items"  class="btn btn-primary">Cancel</a>
+            
+               
+        </form>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#frm').change(function () {
+                $('#changed').val('1');
+            });
+        });
+    </script>
+{% endblock %}
+{% block sidebar %}
+    <li><a href="/items">Browse Items</a></li>      
+{% endblock %}

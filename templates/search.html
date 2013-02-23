@@ -1,0 +1,73 @@
+{% extends __base_template %}
+
+{% block title %}Items{% endblock %}
+{% block submenu %}
+    
+{% endblock %}
+{% block body %}
+    <div class="container">
+		
+      <legend><h3>Search for Items</h3></legend>
+      <fieldset>
+    			<form action="/search" method="GET"  class="form-horizontal">
+    				<p><label for="criteria">Choose search criteria: </label>
+    				<select name="criteria" >
+    					<option> --Choose one-- </option>
+    					<option>Title</option>
+    					<option>Description</option>
+    					<option>Price</option>
+    				</select><br/></p>
+    								
+    				<p><label for="keyword">Enter keyword: </label>
+    				<input type="text" name="keyword" value="{% if failed %}{{ email }}{% endif %}" required/>
+    				<br/>	</p>			
+    				<button class="btn btn-primary" type="submit">Search</button>
+    			</form>
+        </fieldset>
+        </div>
+      
+      <div class="clear"></div>&nbsp;&nbsp;
+    {% if SearchItems  %}	
+      <table class="table table-bordered   table-hover">
+        
+        <thead>
+          <tr>
+            
+            <th>Title</th>
+            <th>Price</th>
+            <th>Creation</th>
+            <th>Description</th>
+            <th>Expiry</th>
+          </tr>
+        </thead>
+
+         <tbody>
+           {% for i in SearchItems %}
+              <tr>
+                
+                <td>{{ i.title }}</td>
+                <td>{{ i.price }}</td>
+                <td>{{ i.creation_time.strftime('%Y-%m-%d') }}</td>
+                <td>{{ i.description }}</td>
+                <td>{{ i.expiry_date.strftime('%Y-%m-%d') }}</td></tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    	  
+      {% else %}
+        No Items
+    {% endif %}
+      
+        
+       
+    
+{% endblock %}
+{% block sidebar %}
+      {% if user_info %}
+        <li><a href="/items/add">Add Item</a></li>
+        {% else %}
+
+          <li><a href="/items/add">Sign in to add an item</a></li>
+          <li><a href="/signup">Don't have account ? Sign Up</a></li>
+    {% endif %}    
+{% endblock %}

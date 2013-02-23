@@ -1,0 +1,8 @@
+# This is project will be goverened by a git repo. The following are ideas of how to mitigate the chaos of free coding.
+
+# 1. All developments are to be done on the develop branch and the master will only have deployable versions of the project.
+# 2. Changes to the develop and master branch should be pushed to the online/remote repo
+# 3. If you're working on a new feature (or any feature for that matter), create a branch for it then merge it to the develop branch when you're done.
+# 4. Before committing any changes to the develop branch (eg when merging a feature branch ), first pull the remote developer branch so as to have the most recent changes of the develop branch in your repo, then you can commit/merge.
+# 5. I'm tired so you can refer to http://nvie.com/posts/a-successful-git-branching-model/
+

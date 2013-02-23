@@ -1,0 +1,55 @@
+{% extends __base_template %}
+
+{% block title %}Profile: {{ user.name }}{% endblock %}
+
+{% block content %}
+{% block submenu %}
+    
+{% endblock %}
+
+<h3>Profile: {{ user.name }}</h3>
+{% if current_user %}
+    <p>Email: <strong>{{ user.email }}</strong></p>
+
+    {% if user.admin %}
+    <p>You have administrator powers! <a href="">Go to admin</a></p>
+    {% endif %}
+    
+    <p class="alert">I'm fed up. <a href="/quit" class="btn btn-danger" onclick="return confirm('Are you sure?');">Delete all my data</a></p>
+{% endif %}
+
+
+
+<h4>Items posted</h4>
+<div class="bs-docs-example">
+    <table class="table table-bordered   table-hover">
+    <thead>
+	    <tr>
+		    <th>#</th>
+		    <th>Title</th>
+		    <th>Price</th>
+		    <th>Creation</th>
+		    <th>Description</th>
+		    <th>Expiry</th>
+	    </tr>
+    </thead>
+    <tbody>
+        {% if user.items %}
+            {% for i in user.items %}
+              <tr>
+              	<td>
+              		<a href="items/edit/{{ i.key.urlsafe() }}">edit</a>
+              		&nbsp;&nbsp;
+              		<a href="items/del/{{ i.key.urlsafe() }}">del</a>
+              	</td>
+              	<td>{{ i.title }}</td>
+              	<td>{{ i.price }}</td>
+              	<td>{{ i.creation_time }}</td>
+              	<td>{{ i.description }}</td>
+              	<td>{{ i.expiry_date }}</td></tr>
+            {% endfor %}
+        {% endif %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

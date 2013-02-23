@@ -1,0 +1,57 @@
+{% extends 'base/page.html' %}
+{% block title %}{{ disc.topic }}{% endblock %}
+{% block head %}
+    <style>.msg_box {
+        width: 550px;
+    }
+
+    .well {
+        margin-bottom: 5px;
+        padding: 10px;
+    }
+
+    .well_mine {
+        background-color: #ccc
+    }</style>
+{% endblock %}
+{% block body %}
+    <h4 style="display: inline-block">{{ disc.topic }}</h4>
+    <p>Discussion with {% if disc.owner != user %}{{ disc.owner.get().name }}{% else %}{{ disc.participant.get().name }}{% endif %}</p>
+    {% if disc.item %}<h5>Item : {{ disc.item.get().title }}</h5>{% endif %}
+    <div class="container" id="comm_list">
+    {% for i in comms %}
+        {% if i.frm == user %}
+            <div class="well well_mine msg_box"><a href="/comments/del/{{ i.key.urlsafe() }}"><i class="icon-trash"></i></a><p class="pull-right">{{ i.message }}</p>
+        {% else %}
+            <div class="well msg_box"><p class="pull-left">{{ i.message }}</p>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+    <form id="frm" method="post" action="/comments/add/{{ disc.key.urlsafe() }}" class="form form-vertical">
+        <div class="control-group">
+             <div class="control-label"><input maxlength="140" type="text" class="input-xxlarge" name="message" required placeholder="Enter discussion message.."/></div>
+            <div class="controls"><input type="submit" class="btn btn-primary" id="btn" value="Send"/></div>
+        </div>
+    </form>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#frm').submit(function () {
+                var i = true;
+                if ($('#frm input[name=message]').val().trim().length == 0) {
+                    alert('enter a message to send');
+                    i = false;
+                }
+                if ($('#frm input[name=message]').val().trim().length > 140) {
+                    alert('message is to long to send');
+                    i = false
+                }
+                return i;
+            });
+        });
+    </script>
+{% endblock %}
+{% block sidebar %}
+    <li><a href="/discussions">Back to Discussions</a></li>
+    <li><a href="/discussions/edit/{{ disc.key.urlsafe() }}">Edit discussion</a></li>
+{% endblock %}

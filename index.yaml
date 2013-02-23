@@ -1,0 +1,9 @@
+indexes:
+
+- kind: Item
+  ancestor: yes
+  properties:
+  - name: title
+  - name: description
+  - name: price
+    direction: desc

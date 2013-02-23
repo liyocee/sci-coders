@@ -1,0 +1,17 @@
+{% extends __base_template %}
+
+{% block title %}{% if success %}SignUp successful{% else %}SignUp failed{% endif %}{% endblock %}
+
+{% block body %}
+{% if success %}
+<h1>Your sign up was successful</h1>
+
+<a href="/home">Go on to your home page</a>
+<br/>
+<a href="/signout">Or signout</a>
+{% else %}
+<h1>Your sign up was not successful</h1>
+
+<a href="/signup">Please try again</a>
+{% endif %}
+{% endblock %}

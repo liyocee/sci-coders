@@ -1,0 +1,14 @@
+* override render template in basehandler to include user_info (for checking
+whether user is signed in or not)
+
+* implement param filtering and escaping on all user input
+
+* bring items to home
+
+* make search link work
+
+* cant see item edit, delete and discuss, show them
+
+* csrf
+
+* any others? when ur done with an item mark as done after it's list item above

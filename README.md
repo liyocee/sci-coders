@@ -1,4 +1,3 @@
-sci-coders
-==========
+# Hardcode Challenge
 
-Hardcode Security Hackathon
+This is a readme for the hard code challenge

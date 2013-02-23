@@ -1,0 +1,21 @@
+{% extends __base_template %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+    <h3>Welcome to Hardcode</h3>
+    <p>This is application is for hardcode competition for building secure apps</p>
+{% endblock %}
+
+{% block sidebar %}
+    {% if user_info %}
+        <h4>{{ user_info['name'] }}</h4>
+        <li><a href="/signout">Sign Out</a></li>
+    {% else %}
+        <li><a href="/signup">Sign Up</a></li>
+        <li><a href="/signin">Sign In</a></li>
+    {% endif %}
+{% endblock %}       
+                                        
+
+                                        
